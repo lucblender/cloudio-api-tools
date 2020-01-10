@@ -1,0 +1,2997 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: cloud.iO
+  description: User RESTfull API to use cloud.iO
+  #https://swagger-toolbox.firebaseapp.com
+tags:
+  - name: "UserManagement"
+    description: ""
+  - name: "UserAccessControl"
+    description: ""
+  - name: "UserGroup"
+    description: ""
+  - name: "UserGroupAccessControl"
+    description: ""
+  - name: "EndpointManagement"
+    description: ""
+  - name: "Certificate"
+    description: ""
+  - name: "History"
+    description: ""
+  - name: "Logs"
+    description: ""
+  - name: "Remote Jobs Execution"
+    description: ""
+    
+security:
+  - user_auth: []
+    
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/v1/createUser:
+    post:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+          
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't create User
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+          
+    
+  /api/v1/getUser:
+    post:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+            
+      responses:
+        200:
+          description: User formated in Json
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Coudln't get User
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+          
+  /api/v1/deleteUser:
+    delete:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't delete User
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/modifyUserPassword:
+    post:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserPasswordRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't modify user password
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/addUserAuthority:
+    post:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/AddAuthorityRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't add user authority
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/removeUserAuthority:
+    delete:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/RemoveAuthorityRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't delete user authority
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+    
+  /api/v1/getUserList:
+    post:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+            
+      responses:
+        200:
+          description: User list
+          schema:
+            $ref: "#/definitions/UserListAnswer"
+        400:
+          description: Coudln't get User
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getUserAccessRight:
+    post:
+      tags:
+        - UserAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRequest"
+            
+      responses:
+        200:
+          description: Access Right of user
+          schema:
+            $ref: "#/definitions/UserRightAnswer"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/addUserAccessRight:
+    post:
+      tags:
+        - UserAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRightRequestList"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't add user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/modifyUserAccessRight:
+    post:
+      tags:
+        - UserAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserRightRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't modify user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/removeUserAccessRight:
+    delete:
+      tags:
+        - UserAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserTopicRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't remove user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/giveUserAccessRight:
+    post:
+      tags:
+        - UserAccessControl
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/UserListAnswer"
+        400:
+          description: Coudln't give user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/createUserGroup:
+    post:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroup"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't create user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getUserGroup:
+    post:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/UserGroup"
+        400:
+          description: Coudln't get user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getUserGroupList:
+    post:
+      tags:
+        - UserGroup
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/UserGroupList"
+        400:
+          description: Coudln't give user group list
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/addUserToGroup:
+    post:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupUserRequestList"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Can't add user to user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/deleteUserToGroup:
+    delete:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupUserRequest"
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't delete user from user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/deleteUserGroup:
+    delete:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Can't delete user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getUserGroupAccessRight:
+    post:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "UserGroup to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRequest"
+            
+      responses:
+        200:
+          description: Access Right of UserGroup
+          schema:
+            $ref: "#/definitions/UserGroupRightAnswer"
+        400:
+          description: Coudln't get UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/addUserGroupAccessRight:
+    post:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "UserGroup to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRightRequestList"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't add UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/modifyUserGroupAccessRight:
+    post:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "UserGroup to modify"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRightRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't modify UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/removeUserGroupAccessRight:
+    delete:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Access right to remove from UserGroup"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupTopicRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't remove UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/giveUserGroupAccessRight:
+    post:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "UserGroup to delete"
+          required: true
+          schema:
+            $ref: "#/definitions/UserGroupRightRequestList"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't give UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/createEndpoint:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/EndpointCreateRequest"
+            
+      responses:
+        200:
+          description: The UUID of the newly created endpoint
+          schema:
+            $ref: "#/definitions/EndpointParameters"
+        400:
+          description: Coudln't create endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/getEndpoint:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/EndpointRequest"
+            
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointAnswer"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"   
+            
+  /api/v1/getEndpoint/{endpointUUID}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "endpointUUID"
+          description: "Endpoint UUID"
+          required: true
+          type: string
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointAnswer"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"   
+            
+  /api/v1/getEndpointFriendlyName:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/EndpointRequest"
+            
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointFriendlyName"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getEndpointFriendlyName/{endpointUUID}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "endpointUUID"
+          description: "Endpoint UUID"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointFriendlyName"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/getNode:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/NodeRequest"
+            
+      responses:
+        200:
+          description: Requested Node
+          schema:
+            $ref: "#/definitions/Node"
+        400:
+          description: Coudln't get Node
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getNode/{nodeTopic}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "nodeTopic"
+          description: "Node Topic separated by '.'"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Node
+          schema:
+            $ref: "#/definitions/Node"
+        400:
+          description: Coudln't get Node
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/getWOTNode:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/NodeRequest"
+            
+      responses:
+        200:
+          description: Requested Node in WoT description format
+          schema:
+            $ref: "#/definitions/WoTNode"
+        400:
+          description: Coudln't get Node
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+
+  /api/v1/getWOTNode/{nodeTopic}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "nodeTopic"
+          description: "Node Topic separated by '.'"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Node in WoT description format
+          schema:
+            $ref: "#/definitions/WoTNode"
+        400:
+          description: Coudln't get Node
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/getObject:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/ObjectRequest"
+            
+      responses:
+        200:
+          description: Requested Object
+          schema:
+            $ref: "#/definitions/CloudioObject"
+        400:
+          description: Coudln't get Object
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getObject/{objectTopic}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "objectTopic"
+          description: "Object Topic separated by '.'"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Object
+          schema:
+            $ref: "#/definitions/CloudioObject"
+        400:
+          description: Coudln't get Object
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/getAttribute:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/AttributeRequest"
+            
+      responses:
+        200:
+          description: Requested Attribute
+          schema:
+            $ref: "#/definitions/Attribute"
+        400:
+          description: Coudln't get Attribute
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getAttribute/{attributeTopic}:
+    get:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "attributeTopic"
+          description: "Attribute Topic separated by '.'"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Attribute
+          schema:
+            $ref: "#/definitions/Attribute"
+        400:
+          description: Coudln't get Attribute
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/setAttribute:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/AttributeSetRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/setAttribute/{attributeTopic}:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "attributeTopic"
+          description: "Attribute Topic separated by '.'"
+          required: true
+          type: string
+            
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/Attribute"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+            
+  /api/v1/notifyAttributeChange:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/AttributeRequestTimeout"
+            
+      responses:
+        200:
+          description: Requested Attribute when updated
+          schema:
+            $ref: "#/definitions/Attribute"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        408:
+          description: Timeout of request, topic not updated in timout time
+          schema:
+            $ref: "#/definitions/HttpRequestTimeout"
+            
+  /api/v1/notifyAttributeChange/{attributeTopic}:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "path"
+          name: "attributeTopic"
+          description: "Attribute Topic separated by '.'"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Requested Attribute when updated
+          schema:
+            $ref: "#/definitions/Attribute"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        408:
+          description: Timeout of request, topic not updated in timout time
+          schema:
+            $ref: "#/definitions/HttpRequestTimeout"
+            
+  /api/v1/getOwnedEndpoints:
+    post:
+      tags:
+        - EndpointManagement
+            
+      responses:
+        200:
+          description: List of owned endopint
+          schema:
+            $ref: "#/definitions/OwnedEndpointsAnswer"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        408:
+          description: Timeout of request, topic not updated in timout time
+          schema:
+            $ref: "#/definitions/HttpRequestTimeout"
+
+  /api/v1/getAccessibleAttributes:
+    post:
+      tags:
+        - EndpointManagement
+            
+      responses:
+        200:
+          description: List of accessible attribute with their access right
+          schema:
+            $ref: "#/definitions/AccessibleAttributesAnswer"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        408:
+          description: Timeout of request, topic not updated in timout time
+          schema:
+            $ref: "#/definitions/HttpRequestTimeout"
+            
+  /api/v1/createCertificateAndKey:
+    post:
+      tags:
+        - Certificate
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/CertificateAndKeyRequest"
+            
+      responses:
+        200:
+          description: Certificate and Private Key requested endpoint
+          schema:
+            $ref: "#/definitions/CertificateAndPrivateKey"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+    
+  /api/v1/createCertificateAndKeyZip:
+    post:
+      tags:
+        - Certificate
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/CertificateAndKeyZipRequest"
+            
+      responses:
+        200:
+          description: Zip file containing certificate and key in P12, caCertificate in jks and other files to start a cloud.iO project accoarding to the library language used
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/createCertificateFromKey:
+    post:
+      tags:
+        - Certificate
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/CertificateFromKeyRequest"
+            
+      responses:
+        200:
+          description: Certificate from Public Key
+          schema:
+            $ref: "#/definitions/CertificateFromKey"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getCaCertificate:
+    post:
+      tags:
+        - Certificate
+
+      responses:
+        200:
+          description: Ca Certificate
+          schema:
+            $ref: "#/definitions/CaCertificate"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getAttributeHistoryRequest:
+    post:
+      tags:
+        - History
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/HistoryDefaultRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getAttributeHistoryByDateRequest:
+    post:
+      tags:
+        - History
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/HistoryDateRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getAttributeHistoryWhere:
+    post:
+      tags:
+        - History
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/HistoryWhereRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getAttributeHistoryExpert:
+    post:
+      tags:
+        - History
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/HistoryExpertRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getEndpointLogsRequest:
+    post:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/LogsDefaultRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxLogsQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getEndpointLogsByDateRequest:
+    post:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/LogsDateRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxLogsQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getEndpointLogsWhereRequest:
+    post:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/LogsWhereRequest"
+            
+      responses:
+        200:
+          description: Influxdb query answer
+          schema:
+            $ref: "#/definitions/InfluxLogsQueryAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/setLogsLevel:
+    post:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/LogsSetRequest"
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/getLogsLevel:
+    post:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/LogsGetRequest"
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/LogsGetAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+  /api/v1/executeScript:
+    post:
+      tags:
+        - Remote Jobs Execution
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/JobExecuteRequest"
+            
+      responses:
+        200:
+          description: Success of Action if getOutput=False, when **getOutput=True** will get output of Script in **Server-Sent Event** format
+          schema:
+            $ref: "#/definitions/HttpOK"
+        400:
+          description: Coudln't execute Jobs
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
+
+definitions:
+
+  User:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username"
+      passwordHash:
+        type: string
+        example: "$2a$05$bvIG6Nmid91Mu9RcmmWZfO5HJIMCT8riNW0hEp8f6/FuA2/mHZFpe"
+      permissions:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/UserRightMap'
+        example:
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#": {permission: "GRANT", priority: "MEDIUM"}
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/nodeExample/#": {permission: "DENY", priority: "HIGH"}
+      userGroups:
+        type: array
+        items:
+          type: string
+        example: ["testGroup1", "testGroup2"]
+      authorities:
+        type: array
+        items:
+          type: string
+          enum:
+          - "BROKER_ADMINISTRATION"
+          - "BROKER_MONITORING"
+          - "BROKER_POLICYMAKER"
+          - "BROKER_MANAGEMENT"
+          - "HTTP_ACCESS"
+          - "HTTP_ADMIN"
+        example: ["HTTP_ACCESS","HTTP_ADMIN"]
+  
+        
+  UserPasswordRequest:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username" 
+      passwordHash:
+        type: string
+        example: "$2a$05$bvIG6Nmid91Mu9RcmmWZfO5HJIMCT8riNW0hEp8f6/FuA2/mHZFpe"
+      
+        
+  AddAuthorityRequest:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username"
+      authorities:
+        type: array
+        items:
+          type: string
+          enum:
+          - "BROKER_ADMINISTRATION"
+          - "BROKER_MONITORING"
+          - "BROKER_POLICYMAKER"
+          - "BROKER_MANAGEMENT"
+          - "HTTP_ACCESS"
+          - "HTTP_ADMIN"
+        example: ["HTTP_ACCESS","HTTP_ADMIN"]
+        
+  RemoveAuthorityRequest:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username"
+      authority:
+        type: string
+        enum:
+        - "BROKER_ADMINISTRATION"
+        - "BROKER_MONITORING"
+        - "BROKER_POLICYMAKER"
+        - "BROKER_MANAGEMENT"
+        - "HTTP_ACCESS"
+        - "HTTP_ADMIN"
+        
+  UserListAnswer:
+    type: object
+    properties:
+      userList: 
+        type: array
+        items:
+          type: string
+        example: 
+          - "testUser1"
+          - "testUser2"
+          
+  UserRightRequest:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username"
+      userRight:
+        $ref: '#/definitions/UserRightTopic'
+        
+  UserRightAnswer:
+    type: object
+    additionalProperties:
+      $ref: '#/definitions/UserRightMap'
+    example:
+      "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#": {permission: "GRANT", priority: "MEDIUM"}
+      "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/nodeExample/#": {permission: "DENY", priority: "HIGH"}
+          
+  UserRightRequestList:
+    type: object
+    properties:
+      userName:
+        type: string
+        example: "username"
+      userRight:
+        type: array
+        items:
+          $ref: '#/definitions/UserRightTopic'
+          
+
+  UserRightTopic:
+    type: object
+    properties:
+      topic:
+        type: string
+        example: "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#"
+      permission:
+        type: string
+        enum:
+        - "DENY"
+        - "READ"
+        - "WRITE"
+        - "CONFIGURE"
+        - "GRANT"
+        - "OWN"
+      priority:
+        type: string
+        enum:
+        - "HIGHEST"
+        - "HIGH"
+        - "MEDIUM"
+        - "LOW"
+        
+  UserRightMap:
+    type: object
+    properties:
+      permission:
+        type: string
+        enum:
+        - "DENY"
+        - "READ"
+        - "WRITE"
+        - "CONFIGURE"
+        - "GRANT"
+        - "OWN"
+      priority:
+        type: string
+        enum:
+        - "HIGHEST"
+        - "HIGH"
+        - "MEDIUM"
+        - "LOW"
+        
+  UserRequest:
+    type: object
+    properties:
+      username:
+        type: string
+        example: "username"
+        
+  UserTopicRequest:
+    type: object
+    properties:
+      username:
+        type: string
+        example: "username"
+      topic:
+        type: string
+        example: "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#"
+  
+  UserGroup:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "userGroupName"
+      usersList:
+        type: array
+        items:
+          type: string
+      permissions:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/UserRightMap'
+        example:
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#": {permission: "GRANT", priority: "MEDIUM"}
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/nodeExample/#": {permission: "DENY", priority: "HIGH"}
+          
+  UserGroupRequest:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "userGroupName"
+        
+  UserGroupTopicRequest:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "userGroupName"
+      topic:
+        type: string
+        example: "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#"
+  
+  UserGroupUserRequestList:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "userGroupName"
+      users:
+        type: array
+        items:
+          type: string
+          
+  UserGroupUserRequest:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "userGroupName"
+      user:
+        type: string
+  
+  UserGroupList:
+    type: object
+    properties:
+      userGroupList:
+        type: array
+        items:
+          type: string
+          
+  UserGroupRightRequest:
+    type: object
+    properties:
+      userGroup:
+        type: string
+        example: "username"
+      userGroupRight:
+        type: array
+        items:
+          $ref: '#/definitions/UserRightTopic'
+          
+  UserGroupRightAnswer:
+    type: object 
+    additionalProperties:
+      $ref: '#/definitions/UserRightMap'
+    example:
+      "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/#": {permission: "GRANT", priority: "MEDIUM"}
+      "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/nodeExample/#": {permission: "DENY", priority: "HIGH"}
+          
+  UserGroupRightRequestList:
+    type: object
+    properties:
+      userGroupName:
+        type: string
+        example: "username"
+      userGroupRight:
+        type: array
+        items:
+          $ref: '#/definitions/UserRightTopic'
+          
+  EndpointCreateRequest:
+    type: object
+    properties:
+      endpointFriendlyName:
+        type: string
+        example: "myNewEndpoint"
+  
+  EndpointRequest:
+    type: object
+    properties:
+      endpointUUID:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      
+  EndpointAnswer:
+    type: object
+    properties:
+      endpointFriendlyName:
+        type: string
+        example: "myEndpointFriendlyName"
+      endpointEntity:
+        $ref: '#/definitions/EndpointEntity'
+        
+  EndpointFriendlyName:
+    type: object
+    properties:
+      endpointFriendlyName:
+        type: string
+        example: "myEndpointFriendlyName"
+        
+  EndpointParameters:
+    type: object
+    properties:
+      UUID:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      friendlyName:
+        type: string
+        example: "MyNewEndointName"
+  
+  NodeRequest:
+    type: object
+    properties:
+      nodeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName"
+        
+  ObjectRequest:
+    type: object
+    properties:
+      objectTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName"
+  
+  AttributeRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+        
+  AttributeSetRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      attribute:
+        $ref: '#/definitions/Attribute'
+  
+  OwnedEndpointsAnswer:
+    type: object
+    properties:
+      ownedEndpoints:
+        type: array
+        items:
+          type: string
+        example: 
+          - "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4"
+          - "3d4f06cb-fc05-4c21-8d22-1d0448d1e683"
+  
+  AccessibleAttributesAnswer:
+    type: object
+    properties:
+      accessibleAttributes:
+        type: object
+        additionalProperties:
+          type: string
+        example:
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/demoNode/demoObject/demoStatic": "READ"
+          "bc0f1bf8-bdae-11e9-9cb5-2a2ae2dbcce4/demoNodeTwo/demoObject/demoMeasure": "GRANT"
+        
+  AttributeRequestTimeout:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      timeout:
+        type: integer
+        example: 15000
+
+  EndpointEntity:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      blocked:
+        type: boolean
+        example: false
+      online:
+        type: boolean
+        example: false
+      endpoint: 
+        $ref: '#/definitions/Endpoint'
+          
+  Endpoint:
+    type: object
+    properties:
+      nodes:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/Node'
+  Node:
+    type: object
+    properties:
+      implements:
+        type: array
+        items:
+          type: string
+      objects:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/CloudioObject'
+  CloudioObject:
+    type: object
+    properties:
+      conforms:
+        type: string
+      objects:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/CloudioObject'
+      attributes:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/Attribute'
+  Attribute:
+    type: object
+    properties:
+      contraint: 
+        type: string
+        enum:
+        - "Invalid"
+        - "Static"
+        - "Parameter"
+        - "Status"
+        - "SetPoint"
+        - "Measure"      
+      type: 
+        type: string
+        enum:
+        - "Invalid"
+        - "Boolean"
+        - integer
+        - "Number"
+        - string
+      timestamp:
+        type: integer
+      value:
+        type: object  
+        example: 1.5
+        
+  CertificateAndKeyRequest:
+    type: object
+    properties:
+      endpointUuid:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+                
+  CertificateAndKeyZipRequest:
+    type: object
+    properties:
+      endpointUuid:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      libraryLanguage:
+        type: string
+        enum:
+        - "JAVA"
+        
+  CertificateFromKeyRequest:
+    type: object
+    properties:
+      endpointUuid:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      publicKey:
+        type: string
+        example: "-----BEGIN PUBLIC KEY-----MIIBIjANB...  -----END PUBLIC KEY-----"
+        
+  CertificateAndPrivateKey:
+    type: object
+    properties:
+      certificate:
+        type: string
+        example: "-----BEGIN CERTIFICATE-----MIICzDC..  -----END CERTIFICATE-----"
+      privateKey:
+        type: string
+        example: "-----BEGIN RSA PRIVATE KEY-----MIICzDC..  -----END RSA PRIVATE KEY-----"
+
+  CertificateFromKey:
+    type: object
+    properties:
+      certificate:
+        type: string
+        example: "-----BEGIN CERTIFICATE-----MIICzDC..  -----END CERTIFICATE-----"
+        
+  CaCertificate:
+    type: object
+    properties:
+      caCertificate: 
+        type: string
+        example: "-----BEGIN CERTIFICATE-----MIICzDC..  -----END CERTIFICATE-----"
+        
+        
+  HistoryDefaultRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      dataPointNumber:
+        type: integer
+        example: 10
+        
+  HistoryDateRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      dateStart:
+        type: string
+        example: "2019-03-10 00:00:00"
+      dateStop:
+        type: string
+        example: "2019-03-10 01:17:00"
+        
+  HistoryWhereRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      where:
+        type: string
+        example: "time> now() - 2400h and time<now() - 1200h"
+        
+  HistoryExpertRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      aggregation: 
+        type: string
+        enum:
+        - "COUNT"
+        - "DISTINCT"
+        - "INTEGRAL"
+        - "MEAN"
+        - "MEDIAN"
+        - "MODE"
+        - "SUM"
+      dateStart:
+        type: string
+        example: "2019-03-10 00:00:00"
+      dateStop:
+        type: string
+        example: "2019-03-10 01:17:00"
+      interval:
+        type: string
+        example: "10m"
+      fill: 
+        type: string
+        enum:
+        - "NULL"
+        - "NONE"
+        - "ZERO"
+        - "PREVIOUS"
+        - "LINEAR"
+      maxDataPoints:
+        type: integer
+        example: 200
+        
+  InfluxQueryAnswer:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          type: object
+          properties:
+            series:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "110e8400-e29b-11d4-a716-446655440000.nodeName.objectName.attiruteName"
+                  tags:
+                    type: object
+                    example: null
+                  columns:
+                    type: array
+                    items:
+                      type: string
+                      example: 
+                        - "time"
+                        - "mean"
+                  value:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        example:
+                          - "2019-10-29T07:43:13.114Z"
+                          - 0.8073357938533047
+                      
+  LogsDefaultRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      dataPointNumber:
+        type: integer
+        example: 10
+        
+  LogsDateRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      dateStart:
+        type: string
+        example: "2019-03-10 00:00:00"
+      dateStop:
+        type: string
+        example: "2019-03-10 01:17:00"
+        
+  LogsWhereRequest:
+    type: object
+    properties:
+      attributeTopic:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000/nodeName/objectName/attiruteName"
+      where:
+        type: string
+        example: "time> now() - 2400h and time<now() - 1200h"      
+        
+        
+  LogsSetRequest:
+    type: object
+    properties:
+      endpointUuid:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      level: 
+        type: string
+        enum:
+        - "ALL"
+        - "TRACE"
+        - "DEBUG"
+        - "INFO"
+        - "WARN"
+        - "ERROR"
+        - "FATAL"
+        - "OFF"
+        
+  LogsGetRequest:
+    type: object
+    properties:
+      endpointUuid:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+        
+  LogsGetAnswer:
+    type: object
+    properties:
+      level: 
+        type: string
+        enum:
+        - "ALL"
+        - "TRACE"
+        - "DEBUG"
+        - "INFO"
+        - "WARN"
+        - "ERROR"
+        - "FATAL"
+        - "OFF"
+        
+  InfluxLogsQueryAnswer:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          type: object
+          properties:
+            series:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    example: "110e8400-e29b-11d4-a716-446655440000.logs"
+                  tags:
+                    type: object
+                    example: null
+                  columns:
+                    type: array
+                    items:
+                      type: string
+                      example: 
+                        - "time"
+                        - "level"
+                        - "logSource"
+                        - "loggerName"
+                        - "message"
+                  value:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: object
+                        example:
+                          - "2019-10-29T07:43:13.114Z"
+                          - "ERROR"
+                          - "Application/main, line:64"
+                          - "RootLogger"
+                          - "This is an error log message"
+        
+  JobExecuteRequest:
+    type: object
+    properties:
+      endpointUUID:
+        type: string
+        example: "110e8400-e29b-11d4-a716-446655440000"
+      jobeURI:
+        type: string
+        example: "cmd://listJobs"
+      getOutput:
+        type: boolean
+        example: true
+      correlationID:
+        type: string
+        example: "e09c1f2e-faf9-11e9-8f0b-362b9e155667"
+      data:
+        type: string
+        example: "http://pathforfileupdate.com"
+    required:
+      - endpointUUID
+      - jobeURI
+      - getOutput
+      - correlationID
+        
+  HttpOK:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        example: "2019-10-09T08:01:031.502+0000"
+      status:
+        type: integer
+        example: 200
+      error:
+        type: string
+        default: "OK"
+      message:
+        type: string
+        example: "Success"
+      path:
+        type: string
+        example: "/api/v1/APIPATH"
+        
+  HttpBadRequest:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        example: "2019-10-09T08:01:031.502+0000"
+      status:
+        type: integer
+        example: 400
+      error:
+        type: string
+        example: "Bad Request"
+      message:
+        type: string
+        example: "Error message"
+      path:
+        type: string
+        example: "/api/v1/APIPATH"
+        
+  HttpNotAllowed:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        example: "2019-10-09T08:01:031.502+0000"
+      status:
+        type: integer
+        example: 405
+      error:
+        type: string
+        example: "Methode Not Allowed"
+      message:
+        type: string
+        example: "Request method 'GET' not supported"
+      path:
+        type: string
+        example: "/api/v1/APIPATH"
+        
+  HttpForbidden:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        example: "2019-10-09T08:01:031.502+0000"
+      status:
+        type: integer
+        example: 403
+      error:
+        type: string
+        example: "Forbidden"
+      message:
+        type: string
+        example: "Error message"
+      path:
+        type: string
+        example: "/api/v1/APIPATH"
+        
+  HttpRequestTimeout:
+    type: object
+    properties:
+      timestamp:
+        type: string
+        example: "2019-10-09T08:01:031.502+0000"
+      status:
+        type: integer
+        example: 408
+      error:
+        type: string
+        example: "Request Timeout"
+      message:
+        type: string
+        example: "Error message"
+      path:
+        type: string
+        example: "/api/v1/APIPATH"
+        
+  WoTNode:
+    required: 
+      - "@context"
+      - "id"
+      - "title"
+      - "securityDefinitions"
+      - "security"
+      - "properties"
+      - "events"
+    properties: 
+      "@context": 
+        type: "string"
+      id: 
+        type: "string"
+      title: 
+        type: "string"
+      securityDefinitions: 
+        required: 
+          - "https_sc"
+          - "mqtts_sc"
+        properties: 
+          https_sc: 
+            required: 
+              - "scheme"
+              - "in"
+            properties: 
+              scheme: 
+                type: "string"
+              in: 
+                type: "string"
+            type: "object"
+          mqtts_sc: 
+            required: 
+              - "scheme"
+            properties: 
+              scheme: 
+                type: "string"
+            type: "object"
+        type: "object"
+      security: 
+        type: "array"
+        items: 
+          type: "string"
+      properties: 
+        required: 
+          - "temperatures"
+        properties: 
+          temperatures: 
+            required: 
+              - "type"
+              - "properties"
+              - "forms"
+            properties: 
+              type: 
+                type: "string"
+              properties: 
+                required: 
+                  - "temperature"
+                  - "setPointTemperature"
+                properties: 
+                  temperature: 
+                    required: 
+                      - "input"
+                      - "forms"
+                    properties: 
+                      input: 
+                        required: 
+                          - "type"
+                          - "properties"
+                          - "required"
+                        properties: 
+                          type: 
+                            type: "string"
+                          properties: 
+                            required: 
+                              - "constraint"
+                              - "type"
+                              - "timestamp"
+                              - "value"
+                            properties: 
+                              constraint: 
+                                required: 
+                                  - "type"
+                                  - "enum"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                  enum: 
+                                    type: "array"
+                                    items: 
+                                      type: "string"
+                                type: "object"
+                              type: 
+                                required: 
+                                  - "type"
+                                  - "enum"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                  enum: 
+                                    type: "array"
+                                    items: 
+                                      type: "string"
+                                type: "object"
+                              timestamp: 
+                                required: 
+                                  - "type"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                type: "object"
+                              value: 
+                                required: 
+                                  - "type"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                type: "object"
+                            type: "object"
+                          required: 
+                            type: "array"
+                            items: 
+                              type: "string"
+                        type: "object"
+                      forms: 
+                        type: "array"
+                        items: 
+                          type: "object"
+                          properties: 
+                            href: 
+                              type: "string"
+                            op: 
+                              type: "string"
+                            contentType: 
+                              type: "string"
+                    type: "object"
+                  setPointTemperature: 
+                    required: 
+                      - "input"
+                      - "forms"
+                    properties: 
+                      input: 
+                        required: 
+                          - "type"
+                          - "properties"
+                          - "required"
+                        properties: 
+                          type: 
+                            type: "string"
+                          properties: 
+                            required: 
+                              - "constraint"
+                              - "type"
+                              - "timestamp"
+                              - "value"
+                            properties: 
+                              constraint: 
+                                required: 
+                                  - "type"
+                                  - "enum"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                  enum: 
+                                    type: "array"
+                                    items: 
+                                      type: "string"
+                                type: "object"
+                              type: 
+                                required: 
+                                  - "type"
+                                  - "enum"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                  enum: 
+                                    type: "array"
+                                    items: 
+                                      type: "string"
+                                type: "object"
+                              timestamp: 
+                                required: 
+                                  - "type"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                type: "object"
+                              value: 
+                                required: 
+                                  - "type"
+                                properties: 
+                                  type: 
+                                    type: "string"
+                                type: "object"
+                            type: "object"
+                          required: 
+                            type: "array"
+                            items: 
+                              type: "string"
+                        type: "object"
+                      forms: 
+                        type: "array"
+                        items: 
+                          type: "object"
+                          properties: 
+                            href: 
+                              type: "string"
+                            op: 
+                              type: "string"
+                            contentType: 
+                              type: "string"
+                    type: "object"
+                type: "object"
+              forms: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: {}
+            type: "object"
+        type: "object"
+      events: 
+        required: 
+          - "updateTemperaturesTemperature"
+          - "updateTemperaturesSetPointTemperature"
+        properties: 
+          updateTemperaturesTemperature: 
+            required: 
+              - "data"
+              - "forms"
+            properties: 
+              data: 
+                required: 
+                  - "input"
+                properties: 
+                  input: 
+                    required: 
+                      - "type"
+                      - "properties"
+                      - "required"
+                    properties: 
+                      type: 
+                        type: "string"
+                      properties: 
+                        required: 
+                          - "constraint"
+                          - "type"
+                          - "timestamp"
+                          - "value"
+                        properties: 
+                          constraint: 
+                            required: 
+                              - "type"
+                              - "enum"
+                            properties: 
+                              type: 
+                                type: "string"
+                              enum: 
+                                type: "array"
+                                items: 
+                                  type: "string"
+                            type: "object"
+                          type: 
+                            required: 
+                              - "type"
+                              - "enum"
+                            properties: 
+                              type: 
+                                type: "string"
+                              enum: 
+                                type: "array"
+                                items: 
+                                  type: "string"
+                            type: "object"
+                          timestamp: 
+                            required: 
+                              - "type"
+                            properties: 
+                              type: 
+                                type: "string"
+                            type: "object"
+                          value: 
+                            required: 
+                              - "type"
+                            properties: 
+                              type: 
+                                type: "string"
+                            type: "object"
+                        type: "object"
+                      required: 
+                        type: "array"
+                        items: 
+                          type: "string"
+                    type: "object"
+                type: "object"
+              forms: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    href: 
+                      type: "string"
+                    op: 
+                      type: "string"
+                    subprotocol: 
+                      type: "string"
+                    contentType: 
+                      type: "string"
+            type: "object"
+          updateTemperaturesSetPointTemperature: 
+            required: 
+              - "data"
+              - "forms"
+            properties: 
+              data: 
+                required: 
+                  - "type"
+                  - "properties"
+                  - "required"
+                properties: 
+                  type: 
+                    type: "string"
+                  properties: 
+                    required: 
+                      - "constraint"
+                      - "type"
+                      - "timestamp"
+                      - "value"
+                    properties: 
+                      constraint: 
+                        required: 
+                          - "type"
+                          - "enum"
+                        properties: 
+                          type: 
+                            type: "string"
+                          enum: 
+                            type: "array"
+                            items: 
+                              type: "string"
+                        type: "object"
+                      type: 
+                        required: 
+                          - "type"
+                          - "enum"
+                        properties: 
+                          type: 
+                            type: "string"
+                          enum: 
+                            type: "array"
+                            items: 
+                              type: "string"
+                        type: "object"
+                      timestamp: 
+                        required: 
+                          - "type"
+                        properties: 
+                          type: 
+                            type: "string"
+                        type: "object"
+                      value: 
+                        required: 
+                          - "type"
+                        properties: 
+                          type: 
+                            type: "string"
+                        type: "object"
+                    type: "object"
+                  required: 
+                    type: "array"
+                    items: 
+                      type: "string"
+                type: "object"
+              forms: 
+                type: "array"
+                items: 
+                  type: "object"
+                  properties: 
+                    href: 
+                      type: "string"
+                    op: 
+                      type: "string"
+                    subprotocol: 
+                      type: "string"
+                    contentType: 
+                      type: "string"
+            type: "object"
+        type: "object"
+
+        
+        
+    
+securityDefinitions:
+  user_auth:
+    type: "basic"
+
+# Added by API Auto Mocking Plugin
+# host: localhost:8081
+# schemes:
+#   - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /luc_blender/cloud.iO-2.0/1.0.0
+schemes:
+ - https
+ - http
