@@ -94,6 +94,37 @@ paths:
           description: Didn't user correct http method
           schema:
             $ref: "#/definitions/HttpNotAllowed"
+            
+    
+  /api/v1/getUser/{userName}:
+    get:
+      tags:
+        - UserManagement
+        
+      parameters:
+        - in: "path"
+          name: "userName"
+          description: "user Name"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: User formated in Json
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Coudln't get User
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
           
   /api/v1/deleteUser:
     delete:
@@ -262,6 +293,36 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/UserRequest"
+            
+      responses:
+        200:
+          description: Access Right of user
+          schema:
+            $ref: "#/definitions/UserRightAnswer"
+        400:
+          description: Coudln't get user right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/getUserAccessRight/{userName}:
+    get:
+      tags:
+        - UserAccessControl
+        
+      parameters:
+        - in: "path"
+          name: "userName"
+          description: "user Name"
+          required: true
+          type: string
             
       responses:
         200:
@@ -459,6 +520,36 @@ paths:
           schema:
             $ref: "#/definitions/HttpNotAllowed"
             
+  /api/v1/getUserGroup/{userGroupName}:
+    get:
+      tags:
+        - UserGroup
+        
+      parameters:
+        - in: "path"
+          name: "userGroupName"
+          description: "usergroup Name"
+          required: true
+          type: string
+            
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/UserGroup"
+        400:
+          description: Coudln't get user group
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+            
   /api/v1/getUserGroupList:
     post:
       tags:
@@ -585,6 +676,36 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/UserGroupRequest"
+            
+      responses:
+        200:
+          description: Access Right of UserGroup
+          schema:
+            $ref: "#/definitions/UserGroupRightAnswer"
+        400:
+          description: Coudln't get UserGroup right
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't use correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+      
+  /api/v1/getUserGroupAccessRight/{userGroupName}:
+    get:
+      tags:
+        - UserGroupAccessControl
+        
+      parameters:
+        - in: "path"
+          name: "userGroupName"
+          description: "usergroup Name"
+          required: true
+          type: string
             
       responses:
         200:
@@ -1268,8 +1389,70 @@ paths:
           schema:
             $ref: "#/definitions/HttpRequestTimeout"
             
-  /api/v1/getOwnedEndpoints:
+  /api/v1/blockEndpoint:
     post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/EndpointRequest"
+            
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointAnswer"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"   
+            
+  /api/v1/unblockEndpoint:
+    post:
+      tags:
+        - EndpointManagement
+        
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New User data"
+          required: true
+          schema:
+            $ref: "#/definitions/EndpointRequest"
+            
+      responses:
+        200:
+          description: Requested Endpoint Entity
+          schema:
+            $ref: "#/definitions/EndpointAnswer"
+        400:
+          description: Coudln't get Endpoint
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"   
+            
+  /api/v1/getOwnedEndpoints:
+    get:
       tags:
         - EndpointManagement
             
@@ -1296,7 +1479,7 @@ paths:
             $ref: "#/definitions/HttpRequestTimeout"
 
   /api/v1/getAccessibleAttributes:
-    post:
+    get:
       tags:
         - EndpointManagement
             
@@ -1696,6 +1879,35 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/LogsGetRequest"
+      responses:
+        200:
+          description: Success of action
+          schema:
+            $ref: "#/definitions/LogsGetAnswer"
+        400:
+          description: Coudln't get result of query
+          schema:
+            $ref: "#/definitions/HttpBadRequest"
+        403:
+          description: Http Admin Right needed for this action
+          schema:
+            $ref: "#/definitions/HttpForbidden"
+        405:
+          description: Didn't user correct http method
+          schema:
+            $ref: "#/definitions/HttpNotAllowed"
+        
+  /api/v1/getLogsLevel/{endpointUUID}:
+    get:
+      tags:
+        - Logs
+        
+      parameters:
+        - in: "path"
+          name: "endpointUUID"
+          description: "Endpoint UUID"
+          required: true
+          type: string
       responses:
         200:
           description: Success of action
